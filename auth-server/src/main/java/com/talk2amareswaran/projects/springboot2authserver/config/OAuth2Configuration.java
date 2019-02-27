@@ -47,6 +47,15 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 	@Qualifier("authenticationManagerBean")
 	private AuthenticationManager authenticationManager;
 	
+
+	@Value("${application.config.jwt_name}")
+	private String jwtName;
+	@Value("${application.config.password}")
+	private String password;
+	@Value("${application.config.jwt_file_name}")
+	private String jwt_file_name;
+	
+	
 	@Bean
 	public OAuth2RequestFactory requestFactory() {
 		CustomOauth2RequestFactory requestFactory = new CustomOauth2RequestFactory(clientDetailsService);
@@ -62,7 +71,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter converter = new CustomTokenEnhancer();
-		converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "password".toCharArray()).getKeyPair("jwt"));
+		converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource(jwt_file_name), password.toCharArray()).getKeyPair(jwtName));
 		return converter;
 	}
 
