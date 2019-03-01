@@ -1,30 +1,38 @@
---- 
 
 check-user-scopes: true
-server: 
+server:
   port: 9001
-spring: 
-  datasource: 
-    driver-class-name: com.mysql.jdbc.Driver
+
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
     initialization-mode: never
-    password: root
-    platform: mysql
-    tomcat: 
+    password: 3edc#123
+    platform: postgres
+    tomcat:
       test-while-idle: true
       validation-query: "SELECT 1"
-    url: "jdbc:mysql://localhost:3306/oauth2_database?useSSL=false"
-    username: root
-  jpa: 
-    hibernate: 
+    url: "jdbc:postgresql://10.25.91.246:5432/authserver"
+    username: postgres
+  jpa:
+    hibernate:
       ddl-auto: update
-      naming: 
+      naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    properties: 
-      hibernate: 
-        dialect: org.hibernate.dialect.MySQL5Dialect
-        
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+        jdbc:
+          lob:
+            non_contextual_creation: true
 application:
-    config:
-        jwt_name: jwt
-        password: password
-        jwt_file_name: jwt.jks
+  config:
+    jwt_name: jwt
+    password: password
+    jwt_file_name: jwt.jks
+
+
